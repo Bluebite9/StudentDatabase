@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import repository.DepartmentDBHelper;
 import repository.DomainDBHelper;
@@ -85,16 +88,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				StudentDBHelper studentDBHelper = new StudentDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.remove(window.getTablePanel());
-					window.getTablePanel().removeAll();
-					window.getTablePanel().add(table.createStudentTableFromArrayList(studentDBHelper.getAllStudents()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createStudentTableFromArrayList(studentDBHelper.getAllStudents());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -109,15 +113,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createDepartmentTableFromArrayList(departmentDBHelper.getAllDepartments()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createDepartmentTableFromArrayList(departmentDBHelper.getAllDepartments());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -132,15 +138,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				DomainDBHelper domainDBHelper = new DomainDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createDomainTableFromArrayList(domainDBHelper.getAllDomains()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createDomainTableFromArrayList(domainDBHelper.getAllDomains());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -155,15 +163,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+				JPanel panel = window.getTablePanel();
+				window.removeUnnecessaryItems();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createFacultyTableFromArrayList(facultyDBHelper.getAllFaculties()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createFacultyTableFromArrayList(facultyDBHelper.getAllFaculties());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -178,15 +188,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				GroupDBHelper groupDBHelper = new GroupDBHelper();
+				JPanel panel = window.getTablePanel();
+				window.removeUnnecessaryItems();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createGroupTableFromArrayList(groupDBHelper.getAllGroups()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createGroupTableFromArrayList(groupDBHelper.getAllGroups());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -201,15 +213,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				MarkDBHelper markDBHelper = new MarkDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createMarkTableFromArrayList(markDBHelper.getAllMarks()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createMarkTableFromArrayList(markDBHelper.getAllMarks());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -224,15 +238,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createProfessorTableFromArrayList(professorDBHelper.getAllProfessors()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createProfessorTableFromArrayList(professorDBHelper.getAllProfessors());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -247,15 +263,17 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createSpecializationTableFromArrayList(specializationDBHelper.getAllSpecializations()));
-					window.add(window.getTablePanel());
-					window.pack();
-					window.setVisible(true);
+					JTable jtable = table.createSpecializationTableFromArrayList(specializationDBHelper.getAllSpecializations());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.pack();
+				window.setVisible(true);
 			}
 		});
 	}
@@ -270,14 +288,16 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
+				window.removeUnnecessaryItems();
+				JPanel panel = window.getTablePanel();
 				try {
-					window.removeUnnecessaryItems();
-					window.getTablePanel().add(table.createSubjectTableFromArrayList(subjectDBHelper.getAllSubjects()));
-					window.add(window.getTablePanel());
-					window.setVisible(true);
+					JTable jtable = table.createSubjectTableFromArrayList(subjectDBHelper.getAllSubjects());
+					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				window.add(panel);
+				window.setVisible(true);
 			}
 		});
 	}

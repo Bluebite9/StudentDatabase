@@ -20,22 +20,17 @@ public class Tables {
 	public JTable createStudentTableFromArrayList(ArrayList<Student> students) {
 		String[] col = { "Id", "Nume", "Prenume", "Ziua de nastere", "Grupa", "Subgrupa", "Anul de inceput", "Anul curent",
 				"Restantier", "Credite" };
-		
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-		JTable table = new JTable();
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < students.size(); i++) {
-			Student student = students.get(i);
+		for (Student student : students) {
 			Object[] stud = { student.getId(), student.getName(), student.getSurname(), student.getBirthDate(),
 					student.getGroup(), student.getSubgroup(), student.getBeginningYear(), student.getCurrentYear(),
 					student.isDebtor(), student.getCreditsNumber() };
-			
+
 			tableModel.addRow(stud);
 		}
 
-		table.setModel(tableModel);
+		JTable table = new JTable(tableModel);
 
 		return table;
 	}
@@ -46,8 +41,7 @@ public class Tables {
 
 		tableModel.addRow(col);
 
-		for (int i = 0; i < departments.size(); i++) {
-			Department department = departments.get(i);
+		for (Department department : departments) {
 			Object[] dept = { department.getId(), department.getName(), department.getFaculty() };
 
 			tableModel.addRow(dept);
@@ -62,10 +56,7 @@ public class Tables {
 		String col[] = { "Id", "Nume", "Facultate" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < domains.size(); i++) {
-			Domain domain = domains.get(i);
+		for (Domain domain : domains) {
 			Object[] domn = { domain.getId(), domain.getName(), domain.getFaculty() };
 
 			tableModel.addRow(domn);
@@ -80,10 +71,7 @@ public class Tables {
 		String col[] = { "Id", "Nume", "Adresa" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < faculties.size(); i++) {
-			Faculty faculty = faculties.get(i);
+		for (Faculty faculty : faculties) {
 			Object[] fac = { faculty.getId(), faculty.getName(), faculty.getAddress() };
 
 			tableModel.addRow(fac);
@@ -98,10 +86,7 @@ public class Tables {
 		String col[] = { "Id", "Nume", "Specializare", "An", "Numar de studenti" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < groups.size(); i++) {
-			Group group = groups.get(i);
+		for (Group group : groups) {
 			Object[] grp = { group.getId(), group.getName(), group.getSpecialization(), group.getYear(),
 					group.getNumberOfStudents() };
 
@@ -117,10 +102,7 @@ public class Tables {
 		String col[] = { "Id", "Student", "Nota", "Materie", "Sesiune", "Data" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < marks.size(); i++) {
-			Mark mark = marks.get(i);
+		for (Mark mark : marks) {
 			Object[] mrk = { mark.getId(), mark.getStudent(), mark.getMark(), mark.getSubject(), mark.getSession(),
 					mark.getDate() };
 
@@ -136,10 +118,7 @@ public class Tables {
 		String col[] = { "Id", "Prenume", "Nume", "Ziua de nastere", "Departament", "Gradul" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < professors.size(); i++) {
-			Professor professor = professors.get(i);
+		for (Professor professor : professors) {
 			Object[] prof = { professor.getId(), professor.getName(), professor.getSurname(), professor.getBirthDate(),
 					professor.getDepartment(), professor.getDegree() };
 
@@ -155,10 +134,7 @@ public class Tables {
 		String col[] = { "Id", "Nume", "Domeniu" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < specializations.size(); i++) {
-			Specialization specialization = specializations.get(i);
+		for (Specialization specialization : specializations) {
 			Object[] spec = { specialization.getId(), specialization.getName(), specialization.getDomain() };
 
 			tableModel.addRow(spec);
@@ -174,10 +150,7 @@ public class Tables {
 				"Profesorul de laborator", "Profesorul de seminar", "Credite", "Tipul de examinare", "Optional" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
-		tableModel.addRow(col);
-
-		for (int i = 0; i < subjects.size(); i++) {
-			Subject subject = subjects.get(i);
+		for (Subject subject : subjects) {
 			Object[] subj = { subject.getId(), subject.getName(), subject.getSpecialization(), subject.getYear(),
 					subject.getType(), subject.getSemester(), subject.getLecturer(), subject.getLabProf(), subject.getSeminProf(),
 					subject.getCredits(), subject.getExamType(), subject.isOptional() };

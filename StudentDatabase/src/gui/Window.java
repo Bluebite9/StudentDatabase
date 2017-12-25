@@ -2,8 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -19,9 +19,9 @@ public class Window extends JFrame {
 
 	Window() {
 		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+		buttonPanel.setLayout(new GridLayout(9, 1));
 		tables = new Tables();
-		tablePanel = new JPanel();
+		tablePanel = new JPanel(new BorderLayout());
 
 		Button studentButton = new Button(ButtonIds.Student);
 		Button departmentButton = new Button(ButtonIds.Department);
