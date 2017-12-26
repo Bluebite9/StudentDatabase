@@ -59,7 +59,7 @@ public class Specialization {
 
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs)
 			throws SQLException, DatabaseException {
-		Validation.validateName(this.getName());
+		Validation.validateMediumName(this.getName());
 		Validation.findDomain(conn, pstm, rs, this.getDomain());
 	}
 

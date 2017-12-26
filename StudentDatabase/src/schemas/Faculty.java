@@ -53,7 +53,7 @@ public class Faculty {
 	}
 	
 	public void validate() throws DatabaseException {
-		Validation.validateName(this.getName());
+		Validation.validateLongName(this.getName());
 		Validation.validateAddress(this.getAddress());
 	}
 

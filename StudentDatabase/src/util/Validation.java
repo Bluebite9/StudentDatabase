@@ -49,6 +49,30 @@ public class Validation {
 	private static DatabaseException invalidAddress = new DatabaseException("Invalid address");
 	private static DatabaseException invalidDegree = new DatabaseException("Invalid degree");
 	private static DatabaseException invalidBeginningYear = new DatabaseException("Invalid beginning year");
+	private static DatabaseException invalidShortName = new DatabaseException("Name too long. Maximum is 10 characters");
+	private static DatabaseException invalidMediumName = new DatabaseException("Name too long. Maximum is 45 characters");
+	private static DatabaseException invalidLongName = new DatabaseException("Name too long. Maximum is 100 characters");
+
+	public static void validateShortName(String name) throws DatabaseException {
+		validateName(name);
+		if (name.length() > 10) {
+			throw invalidShortName;
+		}
+	}
+
+	public static void validateMediumName(String name) throws DatabaseException {
+		validateName(name);
+		if (name.length() > 45) {
+			throw invalidMediumName;
+		}
+	}
+
+	public static void validateLongName(String name) throws DatabaseException {
+		validateName(name);
+		if (name.length() > 100) {
+			throw invalidLongName;
+		}
+	}
 
 	public static void validateName(String name) throws DatabaseException {
 		if (!name.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
@@ -202,7 +226,7 @@ public class Validation {
 			throws SQLException, DatabaseException {
 		ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
 		ArrayList<Professor> professors = professorDBHelper.getProfessorById(id);
-		
+
 		validateList(professors);
 	}
 
@@ -210,7 +234,7 @@ public class Validation {
 			throws SQLException, DatabaseException {
 		SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
 		ArrayList<Specialization> specializations = specializationDBHelper.getSpecializationById(id);
-		
+
 		validateList(specializations);
 	}
 
@@ -218,7 +242,7 @@ public class Validation {
 			throws SQLException, DatabaseException {
 		StudentDBHelper studentDBHelper = new StudentDBHelper();
 		ArrayList<Student> student = studentDBHelper.getStudentById(id);
-		
+
 		validateList(student);
 	}
 
@@ -226,7 +250,7 @@ public class Validation {
 			throws SQLException, DatabaseException {
 		SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
 		ArrayList<Subject> subjects = subjectDBHelper.getSubjectById(id);
-		
+
 		validateList(subjects);
 	}
 

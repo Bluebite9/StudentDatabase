@@ -58,7 +58,7 @@ public class Domain {
 	}
 	
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs) throws DatabaseException, SQLException {
-		Validation.validateName(this.getName());
+		Validation.validateMediumName(this.getName());
 		Validation.findFaculty(conn, pstm, rs, this.getFaculty());
 	}
 

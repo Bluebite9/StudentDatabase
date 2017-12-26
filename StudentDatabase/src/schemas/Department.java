@@ -59,7 +59,7 @@ public class Department {
 
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs)
 			throws SQLException, DatabaseException {
-		Validation.validateName(this.getName());
+		Validation.validateLongName(this.getName());
 		Validation.findFaculty(conn, pstm, rs, this.getFaculty());
 	}
 

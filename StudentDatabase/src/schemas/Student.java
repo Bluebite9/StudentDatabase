@@ -134,8 +134,8 @@ public class Student {
 
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs)
 			throws SQLException, DatabaseException {
-		Validation.validateName(this.getName());
-		Validation.validateName(this.getSurname());
+		Validation.validateMediumName(this.getName());
+		Validation.validateMediumName(this.getSurname());
 		Validation.findGroup(conn, pstm, rs, this.getGroup());
 		Validation.validateDate(this.getBirthDate());
 		Validation.validateSubgroup(this.getSubgroup());

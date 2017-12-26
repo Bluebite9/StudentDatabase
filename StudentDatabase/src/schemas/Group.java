@@ -76,7 +76,7 @@ public class Group {
 	}
 	
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs) throws DatabaseException, SQLException {
-		Validation.validateName(this.getName());
+		Validation.validateShortName(this.getName());
 		Validation.findSpecialization(conn, pstm, rs, this.getSpecialization());
 		Validation.validateYear(this.getYear());
 		Validation.validateNumberOfStudents(this.getNumberOfStudents());

@@ -88,8 +88,8 @@ public class Professor {
 
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs)
 			throws DatabaseException, SQLException {
-		Validation.validateName(this.getName());
-		Validation.validateName(this.getSurname());
+		Validation.validateMediumName(this.getName());
+		Validation.validateMediumName(this.getSurname());
 		Validation.validateDegree(this.getDegree());
 		Validation.validateDate(this.getBirthDate());
 		Validation.findDepartment(conn, pstm, rs, this.getDepartment());

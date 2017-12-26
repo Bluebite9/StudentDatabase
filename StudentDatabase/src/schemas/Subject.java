@@ -140,7 +140,7 @@ public class Subject {
 	}
 	
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs) throws SQLException, DatabaseException {
-		Validation.validateName(this.getName());
+		Validation.validateLongName(this.getName());
 		Validation.validateYear(this.getYear());
 		Validation.findSpecialization(conn, pstm, rs, this.getSpecialization());
 		Validation.findProfessor(conn, pstm, rs, this.getLecturer());
