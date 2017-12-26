@@ -5,7 +5,6 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,14 +33,14 @@ public class WindowTest {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					tablePanel.add(tables.createStudentTableFromArrayList(studentDBHelper.getAllStudents()));
-					tablePanel.setVisible(true);
-					frame.add(tablePanel);
-					frame.setVisible(true);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					//tablePanel.add(tables.createStudentTableFromArrayList(studentDBHelper.getAllStudents()));
+//					tablePanel.setVisible(true);
+//					frame.add(tablePanel);
+//					frame.setVisible(true);
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
 			}
 		});
 

@@ -3,6 +3,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,6 +19,15 @@ import repository.ProfessorDBHelper;
 import repository.SpecializationDBHelper;
 import repository.StudentDBHelper;
 import repository.SubjectDBHelper;
+import schemas.Department;
+import schemas.Domain;
+import schemas.Faculty;
+import schemas.Group;
+import schemas.Mark;
+import schemas.Professor;
+import schemas.Specialization;
+import schemas.Student;
+import schemas.Subject;
 
 public class Button {
 
@@ -88,10 +98,13 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				StudentDBHelper studentDBHelper = new StudentDBHelper();
+				GroupDBHelper groupDBHelper = new GroupDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createStudentTableFromArrayList(studentDBHelper.getAllStudents());
+					ArrayList<Student> students = studentDBHelper.getAllStudents();
+					ArrayList<Group> groups = groupDBHelper.getAllGroups();
+					JTable jtable = table.createStudentTableFromArrayList(students, groups);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -113,10 +126,13 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
+				FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createDepartmentTableFromArrayList(departmentDBHelper.getAllDepartments());
+					ArrayList<Department> departments = departmentDBHelper.getAllDepartments();
+					ArrayList<Faculty> faculties = facultyDBHelper.getAllFaculties();
+					JTable jtable = table.createDepartmentTableFromArrayList(departments, faculties);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -138,10 +154,13 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				DomainDBHelper domainDBHelper = new DomainDBHelper();
+				FacultyDBHelper facultlyDBHelper = new FacultyDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createDomainTableFromArrayList(domainDBHelper.getAllDomains());
+					ArrayList<Domain> domains = domainDBHelper.getAllDomains();
+					ArrayList<Faculty> faculties = facultlyDBHelper.getAllFaculties();
+					JTable jtable = table.createDomainTableFromArrayList(domains, faculties);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -188,10 +207,13 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				GroupDBHelper groupDBHelper = new GroupDBHelper();
+				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
 				JPanel panel = window.getTablePanel();
 				window.removeUnnecessaryItems();
 				try {
-					JTable jtable = table.createGroupTableFromArrayList(groupDBHelper.getAllGroups());
+					ArrayList<Group> groups = groupDBHelper.getAllGroups();
+					ArrayList<Specialization> specializations = specializationDBHelper.getAllSpecializations();
+					JTable jtable = table.createGroupTableFromArrayList(groups, specializations);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -213,10 +235,15 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				MarkDBHelper markDBHelper = new MarkDBHelper();
+				StudentDBHelper studentDBHelper = new StudentDBHelper();
+				SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createMarkTableFromArrayList(markDBHelper.getAllMarks());
+					ArrayList<Mark> marks = markDBHelper.getAllMarks();
+					ArrayList<Student> students = studentDBHelper.getAllStudents();
+					ArrayList<Subject> subjects = subjectDBHelper.getAllSubjects();
+					JTable jtable = table.createMarkTableFromArrayList(marks, students, subjects);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -238,10 +265,13 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
+				DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createProfessorTableFromArrayList(professorDBHelper.getAllProfessors());
+					ArrayList<Professor> professors = professorDBHelper.getAllProfessors();
+					ArrayList<Department> departments = departmentDBHelper.getAllDepartments();
+					JTable jtable = table.createProfessorTableFromArrayList(professors, departments);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -263,10 +293,13 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
+				DomainDBHelper domainDBHelper = new DomainDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createSpecializationTableFromArrayList(specializationDBHelper.getAllSpecializations());
+					ArrayList<Specialization> specializations = specializationDBHelper.getAllSpecializations();
+					ArrayList<Domain> domains = domainDBHelper.getAllDomains();
+					JTable jtable = table.createSpecializationTableFromArrayList(specializations, domains);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -288,10 +321,15 @@ public class Button {
 				Window window = Window.getGeneralWindow();
 				Tables table = new Tables();
 				SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
+				ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
+				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
 				window.removeUnnecessaryItems();
 				JPanel panel = window.getTablePanel();
 				try {
-					JTable jtable = table.createSubjectTableFromArrayList(subjectDBHelper.getAllSubjects());
+					ArrayList<Subject> subjects = subjectDBHelper.getAllSubjects();
+					ArrayList<Professor> professors = professorDBHelper.getAllProfessors();
+					ArrayList<Specialization> specializations = specializationDBHelper.getAllSpecializations();
+					JTable jtable = table.createSubjectTableFromArrayList(subjects, professors, specializations);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
 					e.printStackTrace();
