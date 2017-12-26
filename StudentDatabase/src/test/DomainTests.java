@@ -1,6 +1,5 @@
 package test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import repository.DomainDBHelper;
@@ -9,88 +8,67 @@ import util.DBUtil;
 
 public class DomainTests {
 
-	public static void allTests() {
+	public static void allTests() throws Exception {
+		System.out.println("--------------------DOMAIN TESTS--------------------");
 		getAllDomains();
 		getDomainById();
 		getDomainByFaculty();
 		insertAndPermanentDelteDepartment();
+		System.out.println();
 	}
 
-	private static void getAllDomains() {
-		try {
-			DomainDBHelper domainDBHelper = new DomainDBHelper();
-			ArrayList<Domain> domains = domainDBHelper.getAllDomains();
+	private static void getAllDomains() throws Exception {
+		DomainDBHelper domainDBHelper = new DomainDBHelper();
+		ArrayList<Domain> domains = domainDBHelper.getAllDomains();
 
-			if (domains.size() != 1) {
-				throw new Exception("Domains are too many or too few");
-			}
-
-			DBUtil.printNames(domains);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (domains.size() != 1) {
+			throw new Exception("Domains are too many or too few");
 		}
+
+		DBUtil.printNames(domains);
 	}
 
-	private static void getDomainById() {
-		try {
-			DomainDBHelper domainDBHelper = new DomainDBHelper();
-			ArrayList<Domain> domains = domainDBHelper.getDomainById(1);
+	private static void getDomainById() throws Exception {
+		DomainDBHelper domainDBHelper = new DomainDBHelper();
+		ArrayList<Domain> domains = domainDBHelper.getDomainById(1);
 
-			if (domains.size() != 1) {
-				throw new Exception("Domains are too many or too few");
-			}
-
-			DBUtil.printNames(domains);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (domains.size() != 1) {
+			throw new Exception("Domains are too many or too few");
 		}
+
+		DBUtil.printNames(domains);
 	}
 
-	private static void getDomainByFaculty() {
-		try {
-			DomainDBHelper domainDBHelper = new DomainDBHelper();
-			ArrayList<Domain> domains = domainDBHelper.getDomainsByFaculty(1);
+	private static void getDomainByFaculty() throws Exception {
+		DomainDBHelper domainDBHelper = new DomainDBHelper();
+		ArrayList<Domain> domains = domainDBHelper.getDomainsByFaculty(1);
 
-			if (domains.size() != 1) {
-				throw new Exception("Domains are too many or too few");
-			}
-
-			DBUtil.printNames(domains);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (domains.size() != 1) {
+			throw new Exception("Domains are too many or too few");
 		}
+
+		DBUtil.printNames(domains);
 	}
 
-	private static void insertAndPermanentDelteDepartment() {
-		try {
-			DomainDBHelper domainDBHelper = new DomainDBHelper();
-			Domain domain = new Domain(0, "bla bla", 1);
+	private static void insertAndPermanentDelteDepartment() throws Exception {
+		DomainDBHelper domainDBHelper = new DomainDBHelper();
+		Domain domain = new Domain(0, "bla bla", 1);
 
-			int inserted = domainDBHelper.insert(domain);
+		int inserted = domainDBHelper.insert(domain);
 
-			if (inserted == 1) {
-				System.out.println("Domain inserted");
-				ArrayList<Domain> departments = domainDBHelper.getAllDomains();
-				int lastId = getLastId(departments);
-				int deleted = domainDBHelper.permanentDelete(lastId);
+		if (inserted == 1) {
+			System.out.println("Domain inserted");
+			ArrayList<Domain> departments = domainDBHelper.getAllDomains();
+			int lastId = getLastId(departments);
+			int deleted = domainDBHelper.permanentDelete(lastId);
 
-				if (deleted == 1) {
-					System.out.println("Domain deleted");
-				} else {
-					throw new Exception("Domain not deleted");
-				}
+			if (deleted == 1) {
+				System.out.println("Domain deleted");
 			} else {
-				throw new Exception("Domain not inserted");
+				throw new Exception("Domain not deleted");
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			throw new Exception("Domain not inserted");
 		}
 	}
 

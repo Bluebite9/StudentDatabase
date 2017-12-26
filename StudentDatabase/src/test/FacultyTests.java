@@ -1,6 +1,5 @@
 package test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import repository.FacultyDBHelper;
@@ -9,106 +8,79 @@ import util.DBUtil;
 
 public class FacultyTests {
 
-	public static void allTests() {
+	public static void allTests() throws Exception {
+		System.out.println("--------------------FACULTY TESTS--------------------");
 		getAllFaculties();
 		getFacultyById();
 		getFacultyByName();
 		getFacultyByAddress();
 		insertAndPermanentDelteDepartment();
+		System.out.println();
 	}
 
-	private static void getAllFaculties() {
-		try {
-			FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+	private static void getAllFaculties() throws Exception {
+		FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+		ArrayList<Faculty> faculties = facultyDBHelper.getAllFaculties();
+
+		if (faculties.size() != 1) {
+			throw new Exception("Faculties are too many or too few");
+		}
+
+		DBUtil.printNames(faculties);
+	}
+
+	private static void getFacultyById() throws Exception {
+		FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+		ArrayList<Faculty> faculties = facultyDBHelper.getFacultyById(1);
+
+		if (faculties.size() != 1) {
+			throw new Exception("Faculties are too many or too few");
+		}
+
+		DBUtil.printNames(faculties);
+	}
+
+	private static void getFacultyByName() throws Exception {
+		FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+		ArrayList<Faculty> faculties = facultyDBHelper.getFacultiesByName("Facultatea");
+
+		if (faculties.size() != 1) {
+			throw new Exception("Faculties are too many or too few");
+		}
+
+		DBUtil.printNames(faculties);
+	}
+
+	private static void getFacultyByAddress() throws Exception {
+		FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+		ArrayList<Faculty> faculties = facultyDBHelper.getFacultiesByAddress("Stiintei");
+
+		if (faculties.size() != 1) {
+			throw new Exception("Faculties are too many or too few");
+		}
+
+		DBUtil.printNames(faculties);
+	}
+
+	private static void insertAndPermanentDelteDepartment() throws Exception {
+		FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+		Faculty faculty = new Faculty(0, "bla bla", "bksajg");
+
+		int inserted = facultyDBHelper.insert(faculty);
+
+		if (inserted == 1) {
+			System.out.println("Faculty inserted");
 			ArrayList<Faculty> faculties = facultyDBHelper.getAllFaculties();
+			int lastId = getLastId(faculties);
+			int deleted = facultyDBHelper.permanentDelete(lastId);
 
-			if (faculties.size() != 1) {
-				throw new Exception("Faculties are too many or too few");
-			}
-
-			DBUtil.printNames(faculties);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void getFacultyById() {
-		try {
-			FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
-			ArrayList<Faculty> faculties = facultyDBHelper.getFacultyById(1);
-
-			if (faculties.size() != 1) {
-				throw new Exception("Faculties are too many or too few");
-			}
-
-			DBUtil.printNames(faculties);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void getFacultyByName() {
-		try {
-			FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
-			ArrayList<Faculty> faculties = facultyDBHelper.getFacultiesByName("Facultatea");
-
-			if (faculties.size() != 1) {
-				throw new Exception("Faculties are too many or too few");
-			}
-
-			DBUtil.printNames(faculties);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void getFacultyByAddress() {
-		try {
-			FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
-			ArrayList<Faculty> faculties = facultyDBHelper.getFacultiesByAddress("Stiintei");
-
-			if (faculties.size() != 1) {
-				throw new Exception("Faculties are too many or too few");
-			}
-
-			DBUtil.printNames(faculties);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void insertAndPermanentDelteDepartment() {
-		try {
-			FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
-			Faculty faculty = new Faculty(0, "bla bla", "bksajg");
-
-			int inserted = facultyDBHelper.insert(faculty);
-
-			if (inserted == 1) {
-				System.out.println("Faculty inserted");
-				ArrayList<Faculty> faculties = facultyDBHelper.getAllFaculties();
-				int lastId = getLastId(faculties);
-				int deleted = facultyDBHelper.permanentDelete(lastId);
-
-				if (deleted == 1) {
-					System.out.println("Faculty deleted");
-				} else {
-					throw new Exception("Faculty not deleted");
-				}
+			if (deleted == 1) {
+				System.out.println("Faculty deleted");
 			} else {
-				throw new Exception("Faculty not inserted");
+				throw new Exception("Faculty not deleted");
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			throw new Exception("Faculty not inserted");
 		}
 	}
 

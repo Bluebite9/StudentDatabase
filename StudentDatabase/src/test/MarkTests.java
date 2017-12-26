@@ -1,7 +1,6 @@
 package test;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -11,7 +10,8 @@ import util.DBUtil;
 
 public class MarkTests {
 
-	public static void allTests() {
+	public static void allTests() throws Exception {
+		System.out.println("--------------------MARK TESTS--------------------");
 		getAllMarks();
 		getMarkByDate();
 		getMarkById();
@@ -20,152 +20,107 @@ public class MarkTests {
 		getMarkByStudent();
 		getMarkBySubject();
 		insertAndPermanentDelteDepartment();
+		System.out.println();
 	}
 
-	private static void getAllMarks() {
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getAllMarks();
+	private static void getAllMarks() throws Exception {
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getAllMarks();
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void getMarkById() {
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getMarkById(1);
+	private static void getMarkById() throws Exception {
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getMarkById(1);
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void getMarkByStudent() {
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getMarksByStudent(3);
+	private static void getMarkByStudent() throws Exception {
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getMarksByStudent(3);
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void getMarkByMark() {
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getMarksByMark(10);
+	private static void getMarkByMark() throws Exception {
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getMarksByMark(10);
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void getMarkBySubject() {
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getMarksBySubject(1);
+	private static void getMarkBySubject() throws Exception {
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getMarksBySubject(1);
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void getMarkBySession() {
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getMarksBySession("iarna");
+	private static void getMarkBySession() throws Exception {
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getMarksBySession("iarna");
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void getMarkByDate() {
+	private static void getMarkByDate() throws Exception {
 		java.util.Date date = new GregorianCalendar(2018, 0, 20).getTime();
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			ArrayList<Mark> mark = markDBHelper.getMarksByDate(new Date(date.getTime()));
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		ArrayList<Mark> mark = markDBHelper.getMarksByDate(new Date(date.getTime()));
 
-			if (mark.size() != 1) {
-				throw new Exception("Marks are too many or too few");
-			}
-
-			DBUtil.printNames(mark);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (mark.size() != 1) {
+			throw new Exception("Marks are too many or too few");
 		}
+
+		DBUtil.printNames(mark);
 	}
 
-	private static void insertAndPermanentDelteDepartment() {
+	private static void insertAndPermanentDelteDepartment() throws Exception {
 		java.util.Date date = new GregorianCalendar(2017, 0, 9).getTime();
-		try {
-			MarkDBHelper markDBHelper = new MarkDBHelper();
-			Mark mark = new Mark(0, 1, 10, 1, "iarna", new Date(date.getTime()));
+		MarkDBHelper markDBHelper = new MarkDBHelper();
+		Mark mark = new Mark(0, 1, 10, 1, "iarna", new Date(date.getTime()));
 
-			int inserted = markDBHelper.insert(mark);
+		int inserted = markDBHelper.insert(mark);
 
-			if (inserted == 1) {
-				System.out.println("Mark inserted");
-				ArrayList<Mark> marks = markDBHelper.getAllMarks();
-				int lastId = getLastId(marks);
-				int deleted = markDBHelper.permanentDelete(lastId);
+		if (inserted == 1) {
+			System.out.println("Mark inserted");
+			ArrayList<Mark> marks = markDBHelper.getAllMarks();
+			int lastId = getLastId(marks);
+			int deleted = markDBHelper.permanentDelete(lastId);
 
-				if (deleted == 1) {
-					System.out.println("Mark deleted");
-				} else {
-					throw new Exception("Mark not deleted");
-				}
+			if (deleted == 1) {
+				System.out.println("Mark deleted");
 			} else {
-				throw new Exception("Mark not inserted");
+				throw new Exception("Mark not deleted");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			throw new Exception("Mark not inserted");
 		}
 	}
 
