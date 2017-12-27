@@ -1,70 +1,76 @@
 package gui;
 
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
-import repository.StudentDBHelper;
+public class WindowTest extends JFrame {
 
-public class WindowTest {
-
-	private JPanel tablePanel;
-	private JFrame frame;
-	private JPanel buttonPanel;
+	private static final long serialVersionUID = 5316723917180966373L;
+	private JPanel firstPanel = new JPanel(), secondPanel = new JPanel();
+	private JButton firstButton = new JButton("FirstButton");
+	private JButton secondButton = new JButton("SecondButton");
 
 	WindowTest() {
-		frame = new JFrame("Window test");
-		tablePanel = new JPanel();
-		Tables tables = new Tables();
-		JTable table = new JTable();
-		buttonPanel = new JPanel();
-		StudentDBHelper studentDBHelper = new StudentDBHelper();
+		// firstPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		// firstPanel = new JPanel() {
+		// private static final long serialVersionUID = -2821218877968742143L;
+		//
+		// @Override
+		// public Dimension getPreferredSize() {
+		// return new Dimension(300, 300);
+		// };
+		// };
+		//
+		// firstButton.setBounds(30, 30, 80, 40);
+		// firstButton.addActionListener(new ActionListener() {
+		//
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// remove(firstPanel);
+		// repaint();
+		// add(secondPanel);
+		// setVisible(true);
+		// }
+		// });
+		//
+		// secondButton.addActionListener(new ActionListener() {
+		//
+		// @Override
+		// public void actionPerformed(ActionEvent e) {
+		// remove(secondPanel);
+		// repaint();
+		// add(firstPanel);
+		// setVisible(true);
+		// }
+		// });
+		//
+		// firstPanel.add(firstButton);
+		// secondPanel.add(secondButton);
+		// getContentPane().add(firstPanel);
+		//
+		// setPreferredSize(new Dimension(800, 640));
+		// pack();
+		// setVisible(true);
 
-		JButton button = new JButton("Studenti");
-
-		button.addActionListener(new ActionListener() {
-
+		JPanel panel = new JPanel() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-//				try {
-//					//tablePanel.add(tables.createStudentTableFromArrayList(studentDBHelper.getAllStudents()));
-//					tablePanel.setVisible(true);
-//					frame.add(tablePanel);
-//					frame.setVisible(true);
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-			}
-		});
-
-		buttonPanel.add(button);
-		frame.add(buttonPanel);
-		frame.pack();
-		frame.setVisible(true);
-
-		frame.setPreferredSize(new Dimension(1600, 900));
-		frame.setMaximumSize(new Dimension(1600, 900));
-		frame.setMinimumSize(new Dimension(1600, 900));
-
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-
-	}
-
-	public JPanel getTablePanel() {
-		return tablePanel;
-	}
-
-	public void setTablePanel(JPanel tablePanel) {
-		this.tablePanel = tablePanel;
+			public Dimension getPreferredSize() {
+				return new Dimension(300, 300);
+			};
+		};
+		panel.setLayout(null);
+		JButton button = new JButton("Position Test");
+		button.setBounds(30, 30, 80, 40);
+		panel.add(button);
+		add(panel);
+		pack();
+		setVisible(true);
 	}
 
 	public static void main(String[] args) {

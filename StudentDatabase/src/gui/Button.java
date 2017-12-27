@@ -33,6 +33,18 @@ public class Button {
 
 	private JButton button;
 	private ButtonIds id;
+	private DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
+	private DomainDBHelper domainDBHelper = new DomainDBHelper();
+	private FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
+	private GroupDBHelper groupDBHelper = new GroupDBHelper();
+	private MarkDBHelper markDBHelper = new MarkDBHelper();
+	private ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
+	private SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
+	private StudentDBHelper studentDBHelper = new StudentDBHelper();
+	private SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
+	private Window window = Window.getGeneralWindow();
+	private Tables table = new Tables();
+	private JPanel panel = window.getTablePanel();
 
 	Button(ButtonIds id) {
 		if (id == ButtonIds.Student) {
@@ -95,12 +107,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				StudentDBHelper studentDBHelper = new StudentDBHelper();
-				GroupDBHelper groupDBHelper = new GroupDBHelper();
-				window.removeUnnecessaryItems();
-				JPanel panel = window.getTablePanel();
+				window.removeTablePanelAndItems();
 				try {
 					ArrayList<Student> students = studentDBHelper.getAllStudents();
 					ArrayList<Group> groups = groupDBHelper.getAllGroups();
@@ -123,12 +130,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
-				FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
-				window.removeUnnecessaryItems();
-				JPanel panel = window.getTablePanel();
+				window.removeTablePanelAndItems();
 				try {
 					ArrayList<Department> departments = departmentDBHelper.getAllDepartments();
 					ArrayList<Faculty> faculties = facultyDBHelper.getAllFaculties();
@@ -151,15 +153,10 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				DomainDBHelper domainDBHelper = new DomainDBHelper();
-				FacultyDBHelper facultlyDBHelper = new FacultyDBHelper();
-				window.removeUnnecessaryItems();
-				JPanel panel = window.getTablePanel();
+				window.removeTablePanelAndItems();
 				try {
 					ArrayList<Domain> domains = domainDBHelper.getAllDomains();
-					ArrayList<Faculty> faculties = facultlyDBHelper.getAllFaculties();
+					ArrayList<Faculty> faculties = facultyDBHelper.getAllFaculties();
 					JTable jtable = table.createDomainTableFromArrayList(domains, faculties);
 					panel.add(new JScrollPane(jtable));
 				} catch (SQLException e) {
@@ -179,11 +176,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				FacultyDBHelper facultyDBHelper = new FacultyDBHelper();
-				JPanel panel = window.getTablePanel();
-				window.removeUnnecessaryItems();
+				window.removeTablePanelAndItems();
 				try {
 					JTable jtable = table.createFacultyTableFromArrayList(facultyDBHelper.getAllFaculties());
 					panel.add(new JScrollPane(jtable));
@@ -204,12 +197,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				GroupDBHelper groupDBHelper = new GroupDBHelper();
-				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
-				JPanel panel = window.getTablePanel();
-				window.removeUnnecessaryItems();
+				window.removeTablePanelAndItems();
 				try {
 					ArrayList<Group> groups = groupDBHelper.getAllGroups();
 					ArrayList<Specialization> specializations = specializationDBHelper.getAllSpecializations();
@@ -232,13 +220,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				MarkDBHelper markDBHelper = new MarkDBHelper();
-				StudentDBHelper studentDBHelper = new StudentDBHelper();
-				SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
-				window.removeUnnecessaryItems();
-				JPanel panel = window.getTablePanel();
+				window.removeTablePanelAndItems();
 				try {
 					ArrayList<Mark> marks = markDBHelper.getAllMarks();
 					ArrayList<Student> students = studentDBHelper.getAllStudents();
@@ -262,12 +244,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
-				DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
-				window.removeUnnecessaryItems();
-				JPanel panel = window.getTablePanel();
+				window.removeTablePanelAndItems();
 				try {
 					ArrayList<Professor> professors = professorDBHelper.getAllProfessors();
 					ArrayList<Department> departments = departmentDBHelper.getAllDepartments();
@@ -290,11 +267,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
-				DomainDBHelper domainDBHelper = new DomainDBHelper();
-				window.removeUnnecessaryItems();
+				window.removeTablePanelAndItems();
 				JPanel panel = window.getTablePanel();
 				try {
 					ArrayList<Specialization> specializations = specializationDBHelper.getAllSpecializations();
@@ -318,12 +291,7 @@ public class Button {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Window window = Window.getGeneralWindow();
-				Tables table = new Tables();
-				SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
-				ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
-				SpecializationDBHelper specializationDBHelper = new SpecializationDBHelper();
-				window.removeUnnecessaryItems();
+				window.removeTablePanelAndItems();
 				JPanel panel = window.getTablePanel();
 				try {
 					ArrayList<Subject> subjects = subjectDBHelper.getAllSubjects();
@@ -335,6 +303,7 @@ public class Button {
 					e.printStackTrace();
 				}
 				window.add(panel);
+				window.pack();
 				window.setVisible(true);
 			}
 		});
