@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import repository.SpecializationDBHelper;
 import schemas.Specialization;
-import util.DBUtil;
+import util.Util;
 
 public class SpecializationTests {
 
@@ -26,7 +26,7 @@ public class SpecializationTests {
 			throw new Exception("Specializations are too many or too few");
 		}
 
-		DBUtil.printNames(specializations);
+		Util.printNames(specializations);
 	}
 
 	private static void getSpecializationById() throws Exception {
@@ -37,7 +37,7 @@ public class SpecializationTests {
 			throw new Exception("Specializations are too many or too few");
 		}
 
-		DBUtil.printNames(specializations);
+		Util.printNames(specializations);
 	}
 
 	private static void getSpecializationsByName() throws Exception {
@@ -48,7 +48,7 @@ public class SpecializationTests {
 			throw new Exception("Specializations are too many or too few");
 		}
 
-		DBUtil.printNames(specializations);
+		Util.printNames(specializations);
 	}
 
 	private static void getSpecializationsByDomain() throws Exception {
@@ -59,7 +59,7 @@ public class SpecializationTests {
 			throw new Exception("Specializations are too many or too few");
 		}
 
-		DBUtil.printNames(specializations);
+		Util.printNames(specializations);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {

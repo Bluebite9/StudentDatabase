@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import repository.SubjectDBHelper;
 import schemas.Subject;
-import util.DBUtil;
+import util.Util;
 
 public class SubjectTests {
 
@@ -35,7 +35,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectById() throws Exception {
@@ -46,7 +46,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByName() throws Exception {
@@ -58,7 +58,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsBySpecialization() throws Exception {
@@ -69,7 +69,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByYear() throws Exception {
@@ -80,7 +80,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByType() throws Exception {
@@ -91,18 +91,18 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsBySemester() throws Exception {
 		SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
-		ArrayList<Subject> subjects = subjectDBHelper.getSubjectsBySemester(1);
+		ArrayList<Subject> subjects = subjectDBHelper.getSubjectsBySemester("1");
 
 		if (subjects.size() != 1) {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByLecturer() throws Exception {
@@ -113,7 +113,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByLabProf() throws Exception {
@@ -124,7 +124,7 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsBySeminProf() throws Exception {
@@ -135,18 +135,18 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByCredits() throws Exception {
 		SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
-		ArrayList<Subject> subjects = subjectDBHelper.getSubjectsByCredits(6);
+		ArrayList<Subject> subjects = subjectDBHelper.getSubjectsByCredits("6");
 
 		if (subjects.size() != 1) {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByExamType() throws Exception {
@@ -157,18 +157,18 @@ public class SubjectTests {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void getSubjectsByOptional() throws Exception {
 		SubjectDBHelper subjectDBHelper = new SubjectDBHelper();
-		ArrayList<Subject> subjects = subjectDBHelper.getSubjectsByOptional(false);
+		ArrayList<Subject> subjects = subjectDBHelper.getSubjectsByOptional("false");
 
 		if (subjects.size() != 1) {
 			throw new Exception("Subjects are too many or too few");
 		}
 
-		DBUtil.printNames(subjects);
+		Util.printNames(subjects);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {

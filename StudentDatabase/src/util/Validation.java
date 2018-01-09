@@ -5,8 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,154 +31,292 @@ import schemas.Subject;
 
 public class Validation {
 
-	private static DatabaseException invalidName = new DatabaseException("Invalid name");
-	private static DatabaseException invalidList = new DatabaseException("Invalid list");
-	private static DatabaseException invalidYear = new DatabaseException("Invalid year");
-	private static DatabaseException invalidSemester = new DatabaseException("Invalid semester");
-	private static DatabaseException invalidType = new DatabaseException("Invalid type");
-	private static DatabaseException invalidCredits = new DatabaseException("Invalid credits");
-	private static DatabaseException invalidExamType = new DatabaseException("Invalid exam type");
-	private static DatabaseException invalidMark = new DatabaseException("Invalid mark");
-	private static DatabaseException invalidDate = new DatabaseException("Invalid date");
-	private static DatabaseException invalidSession = new DatabaseException("Invalid session");
-	private static DatabaseException invalidNumberOfStudents = new DatabaseException("Invalid number of students");
-	private static DatabaseException invalidSubgroup = new DatabaseException("Invalid subgroup");
-	private static DatabaseException invalidScholarshipType = new DatabaseException("Invalid scholarship type");
-	private static DatabaseException invalidCreditsNumber = new DatabaseException("Invalid credits number");
-	private static DatabaseException invalidAddress = new DatabaseException("Invalid address");
-	private static DatabaseException invalidDegree = new DatabaseException("Invalid degree");
-	private static DatabaseException invalidBeginningYear = new DatabaseException("Invalid beginning year");
-	private static DatabaseException invalidShortName = new DatabaseException("Name too long. Maximum is 10 characters");
-	private static DatabaseException invalidMediumName = new DatabaseException("Name too long. Maximum is 45 characters");
-	private static DatabaseException invalidLongName = new DatabaseException("Name too long. Maximum is 100 characters");
-
-	public static void validateShortName(String name) throws DatabaseException {
+	public static String validateShortName(String name) throws DatabaseException {
 		validateName(name);
-		if (name.length() > 10) {
-			throw invalidShortName;
+		if (name.isEmpty() || name.length() > 10) {
+			throw DatabaseException.invalidShortName;
 		}
+		
+		return name;
 	}
 
-	public static void validateMediumName(String name) throws DatabaseException {
+	public static String validateMediumName(String name) throws DatabaseException {
 		validateName(name);
-		if (name.length() > 45) {
-			throw invalidMediumName;
+		if (name.isEmpty() || name.length() > 45) {
+			throw DatabaseException.invalidMediumName;
 		}
+		
+		return name;
 	}
 
-	public static void validateLongName(String name) throws DatabaseException {
+	public static String validateLongName(String name) throws DatabaseException {
 		validateName(name);
-		if (name.length() > 100) {
-			throw invalidLongName;
+		if (name.isEmpty() || name.length() > 100) {
+			throw DatabaseException.invalidLongName;
 		}
+		
+		return name;
 	}
 
 	public static void validateName(String name) throws DatabaseException {
-		if (!name.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
-			throw invalidName;
+		if (name.isEmpty() || !name.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
+			throw DatabaseException.invalidName;
 		}
 	}
 
 	public static void validateList(@SuppressWarnings("rawtypes") List list) throws SQLException, DatabaseException {
 		if (list.size() < 1) {
-			throw invalidList;
+			throw DatabaseException.invalidList;
 		}
 	}
 
 	public static void validateYear(int year) throws DatabaseException {
 		if (year < 1 || year > 6) {
-			throw invalidYear;
+			throw DatabaseException.invalidYear;
 		}
+	}
+
+	public static int validateStringYear(String year) throws DatabaseException {
+		int intYear = 0;
+		
+		if (year.isEmpty()) {
+			throw DatabaseException.invalidYear;
+		}
+		
+		try {
+			intYear = Integer.parseInt(year);
+		} catch (Exception e) {
+			throw DatabaseException.invalidYear;
+		}
+		
+		return intYear;
 	}
 
 	public static void validateSemester(int semester) throws DatabaseException {
 		if (semester != 1 && semester != 2) {
-			throw invalidSemester;
+			throw DatabaseException.invalidSemester;
 		}
 	}
 
-	public static void validateType(String type) throws DatabaseException {
-		if (type.toLowerCase() != "fundamentala" && type.toLowerCase() != "domeniu"
-				&& type.toLowerCase() != "specialitate") {
-			throw invalidType;
+	public static int validateStringSemester(String semester) throws DatabaseException {
+		int intSemester = 0;
+		
+		if (semester.isEmpty()) {
+			throw DatabaseException.invalidSemester;
 		}
+		
+		try {
+			intSemester = Integer.parseInt(semester);
+		} catch (Exception e) {
+			throw DatabaseException.invalidSemester;
+		}
+		
+		return intSemester;
+	}
+
+	public static String validateType(String type) throws DatabaseException {
+		if (type.isEmpty() || type.toLowerCase() != "fundamentala" && type.toLowerCase() != "domeniu"
+				&& type.toLowerCase() != "specialitate") {
+			throw DatabaseException.invalidType;
+		}
+		
+		return type;
 	}
 
 	public static void validateCredits(int credits) throws DatabaseException {
 		if (credits < 1 || credits > 6) {
-			throw invalidCredits;
+			throw DatabaseException.invalidCredits;
 		}
 	}
 
-	public static void validateExamType(String examType) throws DatabaseException {
-		if (examType != "verificare" && examType != "examen") {
-			throw invalidExamType;
+	public static int validateStringCredits(String credits) throws DatabaseException {
+		int intCredits = 0;
+		
+		if (credits.isEmpty()) {
+			throw DatabaseException.invalidCredits;
 		}
+		
+		try {
+			intCredits = Integer.parseInt(credits);
+		} catch (Exception e) {
+			throw DatabaseException.invalidCredits;
+		}
+		
+		return intCredits;
+	}
+
+	public static String validateExamType(String examType) throws DatabaseException {
+		if (examType.isEmpty() || examType != "verificare" && examType != "examen") {
+			throw DatabaseException.invalidExamType;
+		}
+		
+		return examType;
 	}
 
 	public static void validateMark(int mark) throws DatabaseException {
 		if (mark < 1 || mark > 10) {
-			throw invalidMark;
+			throw DatabaseException.invalidMark;
 		}
 	}
 
-	public static void validateDate(java.sql.Date date) throws DatabaseException {
-		java.util.Date dateToValidate = new GregorianCalendar(1900, 0, 1).getTime();
-		if (date.before(new Date(dateToValidate.getTime()))) {
-			throw invalidDate;
+	public static int validateStringMark(String mark) throws DatabaseException {
+		int intMark = 0;
+		
+		if (mark.isEmpty()) {
+			throw DatabaseException.invalidMark;
 		}
+		
+		try {
+			intMark = Integer.parseInt(mark);
+		} catch (Exception e) {
+			throw DatabaseException.invalidCredits;
+		}
+		
+		return intMark;
 	}
 
-	public static void validateSession(String session) throws DatabaseException {
-		if (session != "iarna" && session != "vara" && session != "toamna") {
-			throw invalidSession;
+	public static String validateStringDate(String date) throws DatabaseException {
+		if (date.isEmpty()) {
+			throw DatabaseException.invalidDate;
 		}
+		
+		String[] dateStringArray = date.split("-");
+		int year = 0;
+		int month = 0;
+		int day = 0;
+
+		if (dateStringArray.length != 3) {
+			throw DatabaseException.invalidDate;
+		}
+
+		try {
+			year = Integer.parseInt(dateStringArray[0]);
+			month = Integer.parseInt(dateStringArray[1]);
+			day = Integer.parseInt(dateStringArray[2]);
+		} catch (Exception e) {
+			throw DatabaseException.invalidDate;
+		}
+
+		if (year < 1900 || year > Calendar.getInstance().get(Calendar.YEAR) || month < 1 || month > 12 || day < 0 || day > 31) {
+			throw DatabaseException.invalidDate;
+		}
+		
+		return date;
+	}
+
+	public static String validateSession(String session) throws DatabaseException {
+		if (session.isEmpty() || (session != "iarna" && session != "vara" && session != "toamna")) {
+			throw DatabaseException.invalidSession;
+		}
+		
+		return session;
 	}
 
 	public static void validateNumberOfStudents(int numberOfStudents) throws DatabaseException {
 		if (numberOfStudents < 0 || numberOfStudents > 60) {
-			throw invalidNumberOfStudents;
+			throw DatabaseException.invalidNumberOfStudents;
 		}
 	}
 
-	public static void validateSubgroup(String subgroup) throws DatabaseException {
-		if (subgroup != "a" && subgroup != "b" && subgroup != "c") {
-			throw invalidSubgroup;
+	public static int validateStringNumberOfStudents(String numberOfStudents) throws DatabaseException {
+		if (numberOfStudents.isEmpty()) {
+			throw DatabaseException.invalidNumberOfStudents;
 		}
+		
+		int intNumberOfStudents = 0;
+		
+		try {
+		intNumberOfStudents =	Integer.parseInt(numberOfStudents);
+		} catch (Exception e) {
+			throw DatabaseException.invalidNumberOfStudents;
+		}
+		
+		return intNumberOfStudents;
 	}
 
-	public static void validateScholarshipType(String scholarshipType) throws DatabaseException {
-		if (scholarshipType != "Bursa sociala" && scholarshipType != "Bursa de merit"
-				&& scholarshipType != "Bursa de performanta") {
-			throw invalidScholarshipType;
+	public static String validateSubgroup(String subgroup) throws DatabaseException {
+		if (subgroup.isEmpty() || (!subgroup.equals("a") && !subgroup.equals("b") && !subgroup.equals("c"))) {
+			throw DatabaseException.invalidSubgroup;
 		}
+		
+		return subgroup;
+	}
+
+	public static String validateScholarshipType(String scholarshipType) throws DatabaseException {
+		if (scholarshipType.isEmpty() || (!scholarshipType.equals("Bursa sociala") && !scholarshipType.equals("Bursa de merit")
+				&& !scholarshipType.equals("Bursa de performanta") && !scholarshipType.equals(""))) {
+			throw DatabaseException.invalidScholarshipType;
+		}
+		
+		return scholarshipType;
 	}
 
 	public static void validateCreditsNumber(int creditsNumber) throws DatabaseException {
 		if (creditsNumber < 0 || creditsNumber > 500) {
-			throw invalidCreditsNumber;
+			throw DatabaseException.invalidCreditsNumber;
 		}
 	}
 
-	public static void validateAddress(String address) throws DatabaseException {
+	public static int validateStringCreditsNumber(String creditsNumber) throws DatabaseException {
+		int intCreditsNumber = 0;
+		
+		if (creditsNumber.isEmpty()) {
+			throw DatabaseException.invalidCreditsNumber;
+		}
+		
+		try {
+			intCreditsNumber = Integer.parseInt(creditsNumber);
+		} catch (Exception e) {
+			throw DatabaseException.invalidCreditsNumber;
+		}
+		
+		return intCreditsNumber;
+	}
+
+	public static String validateAddress(String address) throws DatabaseException {
+		if (address.isEmpty()) {
+			throw DatabaseException.invalidAddress;
+		}
+		
 		Pattern pattern = Pattern.compile("[~#@*+%{}<>\\[\\]|\"\\_^]");
 		Matcher matcher = pattern.matcher(address);
 		if (matcher.find()) {
-			throw invalidAddress;
+			throw DatabaseException.invalidAddress;
 		}
+		
+		return address;
 	}
 
-	public static void validateDegree(String degree) throws DatabaseException {
-		if (degree != "Prof. dr. ing." && degree != "Conf. dr. ing." && degree != "S.l. dr. ing." && degree != "S.l. dr."
-				&& degree != "S.l. dr. mat." && degree != "Asist. drd. mat. inf." && degree != "Asist. drd. ing.") {
-			throw invalidDegree;
+	public static String validateDegree(String degree) throws DatabaseException {
+		if (degree.isEmpty() || (!degree.equals("Prof. dr. ing.") && !degree.equals("Conf. dr. ing.") && degree.equals("S.l. dr. ing.")
+				&& !degree.equals("S.l. dr.") && !degree.equals("S.l. dr. mat.") && !degree.equals("Asist. drd. mat. inf.")
+				&& !degree.equals("Asist. drd. ing."))) {
+			throw DatabaseException.invalidDegree;
 		}
+		
+		return degree;
 	}
 
 	public static void validateBeginningYear(int beginningYear) throws DatabaseException {
 		if (beginningYear < 1980) {
-			throw invalidBeginningYear;
+			throw DatabaseException.invalidBeginningYear;
 		}
+	}
+
+	public static int validateStringBeginningYear(String beginningYear) throws DatabaseException {
+		int intBeginningYear = 0;
+		
+		if (beginningYear.isEmpty()) {
+			throw DatabaseException.invalidBeginningYear;
+		}
+		
+		try {
+			intBeginningYear = Integer.parseInt(beginningYear);
+		} catch (Exception e) {
+			throw DatabaseException.invalidBeginningYear;
+		}
+		
+		return intBeginningYear;
 	}
 
 	public static void findDepartment(Connection conn, PreparedStatement pstm, ResultSet rs, int id)
@@ -240,8 +377,9 @@ public class Validation {
 
 	public static void findStudent(Connection conn, PreparedStatement pstm, ResultSet rs, int id)
 			throws SQLException, DatabaseException {
+		String stringId = "" + id;
 		StudentDBHelper studentDBHelper = new StudentDBHelper();
-		ArrayList<Student> student = studentDBHelper.getStudentById(id);
+		ArrayList<Student> student = studentDBHelper.getStudentById(stringId);
 
 		validateList(student);
 	}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import repository.FacultyDBHelper;
 import schemas.Faculty;
-import util.DBUtil;
+import util.Util;
 
 public class FacultyTests {
 
@@ -26,7 +26,7 @@ public class FacultyTests {
 			throw new Exception("Faculties are too many or too few");
 		}
 
-		DBUtil.printNames(faculties);
+		Util.printNames(faculties);
 	}
 
 	private static void getFacultyById() throws Exception {
@@ -37,7 +37,7 @@ public class FacultyTests {
 			throw new Exception("Faculties are too many or too few");
 		}
 
-		DBUtil.printNames(faculties);
+		Util.printNames(faculties);
 	}
 
 	private static void getFacultyByName() throws Exception {
@@ -48,7 +48,7 @@ public class FacultyTests {
 			throw new Exception("Faculties are too many or too few");
 		}
 
-		DBUtil.printNames(faculties);
+		Util.printNames(faculties);
 	}
 
 	private static void getFacultyByAddress() throws Exception {
@@ -59,7 +59,7 @@ public class FacultyTests {
 			throw new Exception("Faculties are too many or too few");
 		}
 
-		DBUtil.printNames(faculties);
+		Util.printNames(faculties);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {

@@ -30,6 +30,44 @@ public class Subject {
 		this.setOptional(optional);
 		this.setActive(true);
 	}
+	
+	public Subject(String id, String name, String specialization, String year, String type, String semester, String lecturer,
+			String labProf, String seminProf, String credits, String examType, String optional) throws DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateLongName(name));
+		try {
+			this.setSpecialization(Integer.parseInt(specialization));
+		}catch(Exception e) {
+			throw new DatabaseException("Invalid specialization");
+		}
+		this.setYear(Validation.validateStringBeginningYear(year));
+		this.setType(Validation.validateType(type));
+		this.setSemester(Validation.validateStringSemester(semester));
+		try {
+			this.setLecturer(Integer.parseInt(lecturer));
+		}catch(Exception e) {
+			throw new DatabaseException("Invalid lecturer");
+		}
+		try {
+			this.setLabProf(Integer.parseInt(labProf));
+		}catch(Exception e) {
+			throw new DatabaseException("Invalid lab prof");
+		}
+		try {
+			this.setSeminProf(Integer.parseInt(seminProf));
+		}catch(Exception e) {
+			throw new DatabaseException("Invalid semin prof");
+		}
+		this.setCredits(Validation.validateStringCredits(credits));
+		this.setExamType(Validation.validateExamType(examType));
+		boolean subjectOptional = false;
+		if (optional.equals("da")) {
+			subjectOptional= true;
+		}
+		
+		this.setOptional(subjectOptional);
+		this.setActive(true);
+	}
 
 	public int getId() {
 		return id;

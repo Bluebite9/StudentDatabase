@@ -1,10 +1,10 @@
 package schemas;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import util.DatabaseException;
 import util.Validation;
@@ -14,9 +14,9 @@ public class Student {
 	private int id, group, beginningYear, currentYear, creditsNumber;
 	private String name, surname, subgroup, scholarshipType;
 	private boolean debtor, active;
-	private Date birthDate;
+	private String birthDate;
 
-	public Student(int id, String name, String surname, Date birthDate, int group, String subgroup, int beginningYear,
+	public Student(int id, String name, String surname, String birthDate, int group, String subgroup, int beginningYear,
 			int currentYear, String scholarshipType, boolean debtor, int creditsNumber) {
 		this.setId(id);
 		this.setName(name);
@@ -29,6 +29,31 @@ public class Student {
 		this.setScholarshipType(scholarshipType);
 		this.setDebtor(debtor);
 		this.setCreditsNumber(creditsNumber);
+		this.setActive(true);
+	}
+
+	public Student(String id, String name, String surname, String birthDate, String group, String subgroup,
+			String beginningYear, String currentYear, String scholarshipType, String debtor, String creditsNumber)
+			throws ParseException, DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateMediumName(name));
+		this.setSurname(Validation.validateMediumName(surname));
+		try {
+			this.setGroup(Integer.parseInt(group));
+		} catch (Exception e) {
+			throw new DatabaseException("Invalid group");
+		}
+		this.setSubgroup(Validation.validateSubgroup(subgroup));
+		this.setBeginningYear(Validation.validateStringBeginningYear(beginningYear));
+		this.setCurrentYear(Validation.validateStringYear(currentYear));
+		this.setScholarshipType(Validation.validateScholarshipType(scholarshipType));
+		boolean studentDebtor = false;
+		if (debtor.toLowerCase() == "da") {
+			studentDebtor = true;
+		}
+		this.setDebtor(studentDebtor);
+		this.setCreditsNumber(Validation.validateStringCredits(creditsNumber));
+		this.setBirthDate(Validation.validateStringDate(birthDate));
 		this.setActive(true);
 	}
 
@@ -112,11 +137,11 @@ public class Student {
 		this.debtor = debtor;
 	}
 
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -132,12 +157,11 @@ public class Student {
 		this.active = active;
 	}
 
-	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs)
-			throws SQLException, DatabaseException {
+	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs) throws SQLException, DatabaseException {
 		Validation.validateMediumName(this.getName());
 		Validation.validateMediumName(this.getSurname());
 		Validation.findGroup(conn, pstm, rs, this.getGroup());
-		Validation.validateDate(this.getBirthDate());
+		Validation.validateStringDate(this.getBirthDate());
 		Validation.validateSubgroup(this.getSubgroup());
 		Validation.validateBeginningYear(this.getBeginningYear());
 		Validation.validateYear(this.getCurrentYear());

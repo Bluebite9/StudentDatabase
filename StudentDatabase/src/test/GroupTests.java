@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import repository.GroupDBHelper;
 import schemas.Group;
-import util.DBUtil;
+import util.Util;
 
 public class GroupTests {
 
@@ -28,7 +28,7 @@ public class GroupTests {
 			throw new Exception("Groups are too many or too few");
 		}
 
-		DBUtil.printNames(groups);
+		Util.printNames(groups);
 	}
 
 	private static void getGroupById() throws Exception {
@@ -39,7 +39,7 @@ public class GroupTests {
 			throw new Exception("Groups are too many or too few");
 		}
 
-		DBUtil.printNames(groups);
+		Util.printNames(groups);
 	}
 
 	private static void getGroupsByName() throws Exception {
@@ -50,7 +50,7 @@ public class GroupTests {
 			throw new Exception("Groups are too many or too few");
 		}
 
-		DBUtil.printNames(groups);
+		Util.printNames(groups);
 	}
 
 	private static void getGroupsBySpecialization() throws Exception {
@@ -61,29 +61,29 @@ public class GroupTests {
 			throw new Exception("Groups are too many or too few");
 		}
 
-		DBUtil.printNames(groups);
+		Util.printNames(groups);
 	}
 
 	private static void getGroupsByYear() throws Exception {
 		GroupDBHelper groupDBHelper = new GroupDBHelper();
-		ArrayList<Group> groups = groupDBHelper.getGroupsByYear(1);
+		ArrayList<Group> groups = groupDBHelper.getGroupsByYear("1");
 
 		if (groups.size() != 1) {
 			throw new Exception("Groups are too many or too few");
 		}
 
-		DBUtil.printNames(groups);
+		Util.printNames(groups);
 	}
 
 	private static void getGroupsByNumberOfStudents() throws Exception {
 		GroupDBHelper groupDBHelper = new GroupDBHelper();
-		ArrayList<Group> groups = groupDBHelper.getGroupsByNumberOfStudents(20);
+		ArrayList<Group> groups = groupDBHelper.getGroupsByNumberOfStudents("20");
 
 		if (groups.size() != 1) {
 			throw new Exception("Groups are too many or too few");
 		}
 
-		DBUtil.printNames(groups);
+		Util.printNames(groups);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {

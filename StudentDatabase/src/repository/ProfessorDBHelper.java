@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import schemas.Professor;
-import util.DBUtil;
+import util.Util;
 import util.DatabaseException;
 
 public class ProfessorDBHelper extends Driver {
@@ -14,7 +14,7 @@ public class ProfessorDBHelper extends Driver {
 	public ArrayList<Professor> getAllProfessors() throws SQLException {
 		this.openConnection();
 
-		this.setRs(DBUtil.getAllFromTable("professor", this.getConn(), this.getPstm()));
+		this.setRs(Util.getAllFromTable("professor", this.getConn(), this.getPstm()));
 
 		ArrayList<Professor> professors = this.createProfessorsFromResultSet(this.getRs());
 		this.closeAll();
@@ -116,9 +116,9 @@ public class ProfessorDBHelper extends Driver {
 	public ArrayList<Professor> createProfessorsFromResultSet(ResultSet rs) throws SQLException {
 		ArrayList<Professor> professors = new ArrayList<Professor>();
 		while (rs.next()) {
-			professors.add(
-					new Professor(rs.getInt("professor_id"), rs.getString("professor_name"), rs.getString("professor_surname"),
-							rs.getDate("professor_birthdate"), rs.getInt("professor_department"), rs.getString("professor_degree")));
+			professors.add(new Professor(rs.getInt("professor_id"), rs.getString("professor_name"),
+					rs.getString("professor_surname"), rs.getString("professor_birthdate"), rs.getInt("professor_department"),
+					rs.getString("professor_degree")));
 		}
 
 		return professors;
@@ -132,7 +132,7 @@ public class ProfessorDBHelper extends Driver {
 				"insert into students.professor(professor_name, professor_surname, professor_birthdate, professor_department, professor_degree) values (?, ?, ?, ?, ?);"));
 		this.getPstm().setString(1, professor.getName());
 		this.getPstm().setString(2, professor.getSurname());
-		this.getPstm().setDate(3, professor.getBirthDate());
+		this.getPstm().setString(3, professor.getBirthDate());
 		this.getPstm().setInt(4, professor.getDepartment());
 		this.getPstm().setString(5, professor.getDegree());
 		int inserted = this.getPstm().executeUpdate();
@@ -151,6 +151,107 @@ public class ProfessorDBHelper extends Driver {
 		this.closeAll();
 
 		return deleted;
+	}
+
+	public ArrayList<Professor> find(String name, String surname, String birthdate, String department, String degree,
+			String active) throws SQLException {
+		ArrayList<Professor> professorName = new ArrayList<>();
+		ArrayList<Professor> professorSurname = new ArrayList<>();
+		ArrayList<Professor> professorBirthdate = new ArrayList<>();
+		ArrayList<Professor> professorDepartment = new ArrayList<>();
+		ArrayList<Professor> professorDegree = new ArrayList<>();
+		ArrayList<Professor> professors = getAllProfessors();
+
+		boolean bActive = true;
+
+		if (active.equals("Nu")) {
+			bActive = false;
+		}
+
+		if (!name.isEmpty()) {
+			professorName = getProfessorByName(name);
+			professors = intersection(professors, professorName);
+		}
+		if (!surname.isEmpty()) {
+			professorSurname = getProfessorByName(surname);
+			professors = intersection(professors, professorSurname);
+		}
+		if (!birthdate.isEmpty()) {
+			professorBirthdate = getProfessorByName(birthdate);
+			professors = intersection(professors, professorBirthdate);
+		}
+		if (!department.isEmpty()) {
+			professorDepartment = getProfessorByDepartmentName(department);
+			professors = intersection(professors, professorDepartment);
+		}
+		if (!degree.isEmpty()) {
+			professorDegree = getProfessorByDegree(degree);
+			professors = intersection(professors, professorDegree);
+		}
+
+		for (Professor professor : professors) {
+			if (professor.isActive() != bActive) {
+				professors.remove(professor);
+			}
+		}
+
+		return professors;
+	}
+
+	public int update(Professor professor) throws SQLException, DatabaseException {
+		this.openConnection();
+		professor.validate(getConn(), getPstm(), getRs());
+
+		this.setPstm(this.getConn().prepareStatement(
+				"update students.professor set professor_name = ?, professor_surname = ?, professor_birthdate = ?, professor_department = ?, professor_degree = ?, professor_active = ? where faculty_id = ?"));
+		this.getPstm().setString(1, professor.getName());
+		this.getPstm().setString(2, professor.getSurname());
+		this.getPstm().setString(3, professor.getBirthDate());
+		this.getPstm().setInt(4, professor.getDepartment());
+		this.getPstm().setBoolean(5, professor.isActive());
+		this.getPstm().setString(6, professor.getDegree());
+		int update = this.getPstm().executeUpdate();
+
+		return update;
+	}
+
+	private ArrayList<Professor> getProfessorByDepartmentName(String department) throws SQLException {
+		this.openConnection();
+		this.setPstm(this.getConn().prepareStatement(
+				"select * from students.professor join stundets.department on department_id = professor_department where department_name = ?"));
+		this.getPstm().setString(1, department);
+
+		this.setRs(this.getPstm().executeQuery());
+
+		ArrayList<Professor> professors = this.createProfessorsFromResultSet(this.getRs());
+		this.closeAll();
+
+		return professors;
+	}
+
+	public ArrayList<Professor> intersection(ArrayList<Professor> list1, ArrayList<Professor> list2) {
+		ArrayList<Professor> list = new ArrayList<Professor>();
+
+		for (Professor professor1 : list1) {
+			for (Professor professor2 : list2) {
+				if (professor1.getId() == professor2.getId()) {
+					list.add(professor1);
+				}
+			}
+		}
+
+		return list;
+	}
+
+	public Professor getLastProfessorRow() throws SQLException {
+		this.openConnection();
+		this.setPstm(this.getConn().prepareStatement("select * from students.student order by student_id desc limit 1"));
+		this.setRs(this.getPstm().executeQuery());
+
+		ArrayList<Professor> professors = this.createProfessorsFromResultSet(this.getRs());
+		this.closeAll();
+
+		return professors.get(0);
 	}
 
 }

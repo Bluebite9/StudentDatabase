@@ -1,7 +1,6 @@
 package schemas;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,16 +12,31 @@ public class Professor {
 
 	private int id, department;
 	private String name, surname, degree;
-	private Date birthDate;
+	private String birthDate;
 	private boolean active;
 
-	public Professor(int id, String name, String surname, Date birthDate, int department, String degree) {
+	public Professor(int id, String name, String surname, String birthDate, int department, String degree) {
 		this.setId(id);
 		this.setName(name);
 		this.setSurname(surname);
 		this.setBirthDate(birthDate);
 		this.setDepartment(department);
 		this.setDegree(degree);
+		this.setActive(true);
+	}
+
+	public Professor(String id, String name, String surname, String birthDate, String department, String degree)
+			throws DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateMediumName(name));
+		this.setSurname(Validation.validateMediumName(surname));
+		this.setBirthDate(Validation.validateStringDate(birthDate));
+		try {
+			this.setDepartment(Integer.parseInt(department));
+		} catch (Exception e) {
+			throw new DatabaseException("Invalid department");
+		}
+		this.setDegree(Validation.validateDegree(degree));
 		this.setActive(true);
 	}
 
@@ -66,11 +80,11 @@ public class Professor {
 		this.degree = degree;
 	}
 
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -81,17 +95,16 @@ public class Professor {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+
 	public String toString() {
 		return this.getName() + " " + this.getSurname();
 	}
 
-	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs)
-			throws DatabaseException, SQLException {
+	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs) throws DatabaseException, SQLException {
 		Validation.validateMediumName(this.getName());
 		Validation.validateMediumName(this.getSurname());
 		Validation.validateDegree(this.getDegree());
-		Validation.validateDate(this.getBirthDate());
+		Validation.validateStringDate(this.getBirthDate());
 		Validation.findDepartment(conn, pstm, rs, this.getDepartment());
 	}
 

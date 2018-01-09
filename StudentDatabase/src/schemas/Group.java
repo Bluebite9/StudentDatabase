@@ -23,6 +23,19 @@ public class Group {
 		this.setActive(true);
 	}
 
+	public Group(String id, String name, String specialization, String year, String numberOfStudents)
+			throws DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateShortName(name));
+		try {
+			this.setSpecialization(Integer.parseInt(specialization));
+		} catch (Exception e) {
+			throw new DatabaseException("Invalid specialization");
+		}
+		this.setYear(Validation.validateStringYear(year));
+		this.setNumberOfStudents(Validation.validateStringNumberOfStudents(numberOfStudents));
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -70,11 +83,11 @@ public class Group {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+
 	public String toString() {
 		return this.getName();
 	}
-	
+
 	public void validate(Connection conn, PreparedStatement pstm, ResultSet rs) throws DatabaseException, SQLException {
 		Validation.validateShortName(this.getName());
 		Validation.findSpecialization(conn, pstm, rs, this.getSpecialization());

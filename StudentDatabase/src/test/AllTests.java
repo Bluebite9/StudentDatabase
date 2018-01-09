@@ -12,7 +12,7 @@ public class AllTests {
 		String specializations = "Specializations passes";
 		String students = "Students passes";
 		String subjects = "Subjects passes";
-		
+
 		try {
 			DepartmentTests.allTests();
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ public class AllTests {
 			e.printStackTrace();
 			subjects = "Subjects failed";
 		}
-		
+
 		System.out.println(departments);
 		System.out.println(domains);
 		System.out.println(faculties);
@@ -77,6 +77,7 @@ public class AllTests {
 		System.out.println(specializations);
 		System.out.println(students);
 		System.out.println(subjects);
+
 	}
 
 }

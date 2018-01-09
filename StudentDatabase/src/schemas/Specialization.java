@@ -20,6 +20,17 @@ public class Specialization {
 		this.setDomain(domain);
 		this.setActive(true);
 	}
+	
+	public Specialization(String id, String name, String domain) throws DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateMediumName(name));
+		try {
+			this.setDomain(Integer.parseInt(domain));
+		}catch(Exception e) {
+			throw new DatabaseException("Invalid domain");
+		}
+		this.setActive(true);
+	}
 
 	public int getId() {
 		return id;

@@ -20,6 +20,16 @@ public class Department {
 		this.setFaculty(faculty);
 		this.setActive(true);
 	}
+	
+	public Department(String id, String name, String faculty) throws DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateLongName(name));
+		try {
+			this.setFaculty(Integer.parseInt(faculty));
+		}catch(Exception e) {
+			throw new DatabaseException("Invalid faculty");
+		}
+	}
 
 	public int getId() {
 		return id;

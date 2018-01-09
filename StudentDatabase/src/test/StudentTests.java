@@ -1,12 +1,10 @@
 package test;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import repository.StudentDBHelper;
 import schemas.Student;
-import util.DBUtil;
+import util.Util;
 
 public class StudentTests {
 
@@ -35,18 +33,18 @@ public class StudentTests {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentById() throws Exception {
 		StudentDBHelper studentsDBHelper = new StudentDBHelper();
-		ArrayList<Student> students = studentsDBHelper.getStudentById(1);
+		ArrayList<Student> students = studentsDBHelper.getStudentById("1");
 
 		if (students.size() != 1) {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByName() throws Exception {
@@ -57,7 +55,7 @@ public class StudentTests {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsBySurname() throws Exception {
@@ -68,30 +66,29 @@ public class StudentTests {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByBirthDate() throws Exception {
-		java.util.Date date = new GregorianCalendar(1997, 0, 9).getTime();
 		StudentDBHelper studentsDBHelper = new StudentDBHelper();
-		ArrayList<Student> students = studentsDBHelper.getStudentByBirthDate(new Date(date.getTime()));
+		ArrayList<Student> students = studentsDBHelper.getStudentByBirthDate("1997-01-09");
 
 		if (students.size() != 1) {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByGroup() throws Exception {
 		StudentDBHelper studentsDBHelper = new StudentDBHelper();
-		ArrayList<Student> students = studentsDBHelper.getStudentByGroup(1);
+		ArrayList<Student> students = studentsDBHelper.getStudentByGroup("1");
 
 		if (students.size() != 3) {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByNameAndSurname() throws Exception {
@@ -102,29 +99,29 @@ public class StudentTests {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByBeginningYear() throws Exception {
 		StudentDBHelper studentsDBHelper = new StudentDBHelper();
-		ArrayList<Student> students = studentsDBHelper.getStudentByBeginningYear(2017);
+		ArrayList<Student> students = studentsDBHelper.getStudentByBeginningYear("2017");
 
 		if (students.size() != 3) {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByCreditsNumber() throws Exception {
 		StudentDBHelper studentsDBHelper = new StudentDBHelper();
-		ArrayList<Student> students = studentsDBHelper.getStudentByCreditsNumber(0);
+		ArrayList<Student> students = studentsDBHelper.getStudentByCreditsNumber("0");
 
 		if (students.size() != 3) {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByScholarshipType() throws Exception {
@@ -135,25 +132,23 @@ public class StudentTests {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void getStudentsByDebt() throws Exception {
 		StudentDBHelper studentsDBHelper = new StudentDBHelper();
-		ArrayList<Student> students = studentsDBHelper.getStudentByDept(false);
+		ArrayList<Student> students = studentsDBHelper.getStudentByDept("0");
 
 		if (students.size() != 3) {
 			throw new Exception("Students are too many or too few");
 		}
 
-		DBUtil.printNames(students);
+		Util.printNames(students);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {
-		java.util.Date date = new GregorianCalendar(1997, 0, 9).getTime();
 		StudentDBHelper studentDBHelper = new StudentDBHelper();
-		Student student = new Student(0, "bla bla", "daa", new Date(date.getTime()), 1, "a", 2017, 1, "Bursa de merit",
-				false, 0);
+		Student student = new Student(0, "bla bla", "daa", "1997-01-09", 1, "a", 2017, 1, "Bursa de merit", false, 0);
 
 		int inserted = studentDBHelper.insert(student);
 

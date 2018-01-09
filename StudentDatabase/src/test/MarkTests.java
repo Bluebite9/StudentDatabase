@@ -1,12 +1,10 @@
 package test;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import repository.MarkDBHelper;
 import schemas.Mark;
-import util.DBUtil;
+import util.Util;
 
 public class MarkTests {
 
@@ -31,7 +29,7 @@ public class MarkTests {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void getMarkById() throws Exception {
@@ -42,7 +40,7 @@ public class MarkTests {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void getMarkByStudent() throws Exception {
@@ -53,18 +51,18 @@ public class MarkTests {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void getMarkByMark() throws Exception {
 		MarkDBHelper markDBHelper = new MarkDBHelper();
-		ArrayList<Mark> mark = markDBHelper.getMarksByMark(10);
+		ArrayList<Mark> mark = markDBHelper.getMarksByMark("10");
 
 		if (mark.size() != 1) {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void getMarkBySubject() throws Exception {
@@ -75,7 +73,7 @@ public class MarkTests {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void getMarkBySession() throws Exception {
@@ -86,25 +84,23 @@ public class MarkTests {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void getMarkByDate() throws Exception {
-		java.util.Date date = new GregorianCalendar(2018, 0, 20).getTime();
 		MarkDBHelper markDBHelper = new MarkDBHelper();
-		ArrayList<Mark> mark = markDBHelper.getMarksByDate(new Date(date.getTime()));
+		ArrayList<Mark> mark = markDBHelper.getMarksByDate("2018-01-20");
 
 		if (mark.size() != 1) {
 			throw new Exception("Marks are too many or too few");
 		}
 
-		DBUtil.printNames(mark);
+		Util.printNames(mark);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {
-		java.util.Date date = new GregorianCalendar(2017, 0, 9).getTime();
 		MarkDBHelper markDBHelper = new MarkDBHelper();
-		Mark mark = new Mark(0, 1, 10, 1, "iarna", new Date(date.getTime()));
+		Mark mark = new Mark(0, 1, 10, 1, "iarna", "2017-10-12");
 
 		int inserted = markDBHelper.insert(mark);
 

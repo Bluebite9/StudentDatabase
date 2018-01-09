@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 import repository.ProfessorDBHelper;
 import schemas.Professor;
-import util.DBUtil;
+import util.Util;
 
 public class ProfessorTests {
 
@@ -32,7 +32,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorById() throws Exception {
@@ -43,7 +43,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorsByName() throws Exception {
@@ -54,7 +54,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorsBySurname() throws Exception {
@@ -65,7 +65,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorsByBirthDate() throws Exception {
@@ -77,7 +77,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorsByNameAndSurname() throws Exception {
@@ -88,7 +88,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorsByDepartment() throws Exception {
@@ -99,7 +99,7 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void getProfessorsByDegree() throws Exception {
@@ -110,13 +110,12 @@ public class ProfessorTests {
 			throw new Exception("Professors are too many or too few");
 		}
 
-		DBUtil.printNames(professors);
+		Util.printNames(professors);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {
-		java.util.Date date = new GregorianCalendar(2017, 0, 9).getTime();
 		ProfessorDBHelper professorDBHelper = new ProfessorDBHelper();
-		Professor professor = new Professor(0, "da", "da", new Date(date.getTime()), 1, "Prof. dr. ing.");
+		Professor professor = new Professor(0, "da", "da", "2017-01-09", 1, "Prof. dr. ing.");
 
 		int inserted = professorDBHelper.insert(professor);
 

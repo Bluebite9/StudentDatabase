@@ -15,6 +15,13 @@ public class Faculty {
 		this.setAddress(address);
 		this.setActive(true);
 	}
+	
+	public Faculty(String id, String name, String address) throws DatabaseException {
+		this.setId(Integer.parseInt(id));
+		this.setName(Validation.validateLongName(name));
+		this.setAddress(Validation.validateAddress(address));
+		this.setActive(true);
+	}
 
 	public int getId() {
 		return id;

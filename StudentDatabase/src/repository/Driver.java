@@ -1,13 +1,16 @@
 package repository;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import util.DBUtil;
-
 public class Driver {
+
+	private final static String url = "jdbc:mysql://localhost:3306/students?autoReconnect=true&useSSL=false";
+	private final static String user = "root";
+	private final static String password = "123456";
 
 	private Connection conn;
 	private PreparedStatement pstm;
@@ -38,7 +41,19 @@ public class Driver {
 	}
 
 	public void openConnection() throws SQLException {
-		this.setConn(DBUtil.openConnection());
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		Connection conn = DriverManager.getConnection(url, user, password);
+
+		this.setConn(conn);
 	}
 
 	public void closeConnection() {

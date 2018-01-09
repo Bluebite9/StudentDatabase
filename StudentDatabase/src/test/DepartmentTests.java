@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import repository.DepartmentDBHelper;
 import schemas.Department;
-import util.DBUtil;
+import util.Util;
 
 public class DepartmentTests {
 
@@ -26,7 +26,7 @@ public class DepartmentTests {
 			throw new Exception("Departments are too many or too few");
 		}
 
-		DBUtil.printNames(departments);
+		Util.printNames(departments);
 	}
 
 	private static void getDepartmentById() throws Exception {
@@ -37,18 +37,18 @@ public class DepartmentTests {
 			throw new Exception("Departments are too many or too few");
 		}
 
-		DBUtil.printNames(departments);
+		Util.printNames(departments);
 	}
 
 	private static void getDepartmentByName() throws Exception {
 		DepartmentDBHelper departmentDBHelper = new DepartmentDBHelper();
-		ArrayList<Department> departments = departmentDBHelper.getDepartmentsByName("Calculatoare");
+		ArrayList<Department> departments = departmentDBHelper.getDepartmentsByName("departamentul");
 
 		if (departments.size() != 1) {
 			throw new Exception("Departments are too many or too few");
 		}
-
-		DBUtil.printNames(departments);
+		
+		Util.printNames(departments);
 	}
 
 	private static void getDepartmentByFaculty() throws Exception {
@@ -59,7 +59,7 @@ public class DepartmentTests {
 			throw new Exception("Departments are too many or too few");
 		}
 
-		DBUtil.printNames(departments);
+		Util.printNames(departments);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {

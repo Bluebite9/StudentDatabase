@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import repository.DomainDBHelper;
 import schemas.Domain;
-import util.DBUtil;
+import util.Util;
 
 public class DomainTests {
 
@@ -25,7 +25,7 @@ public class DomainTests {
 			throw new Exception("Domains are too many or too few");
 		}
 
-		DBUtil.printNames(domains);
+		Util.printNames(domains);
 	}
 
 	private static void getDomainById() throws Exception {
@@ -36,7 +36,7 @@ public class DomainTests {
 			throw new Exception("Domains are too many or too few");
 		}
 
-		DBUtil.printNames(domains);
+		Util.printNames(domains);
 	}
 
 	private static void getDomainByFaculty() throws Exception {
@@ -47,7 +47,7 @@ public class DomainTests {
 			throw new Exception("Domains are too many or too few");
 		}
 
-		DBUtil.printNames(domains);
+		Util.printNames(domains);
 	}
 
 	private static void insertAndPermanentDelteDepartment() throws Exception {
